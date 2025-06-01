@@ -13,6 +13,26 @@ except Exception as e:
 import streamlit as st
 import pandas as pd
 
+
+
+# 크롤링 전에 driver 테스트 추가
+def test_selenium():
+    driver = init_driver()
+    if driver is None:
+        return "❌ Driver 초기화 실패"
+    
+    try:
+        driver.get("https://www.google.com")
+        title = driver.title
+        return f"✅ Driver 성공: {title}"
+    except Exception as e:
+        return f"❌ Driver 오류: {e}"
+
+# app.py의 크롤링 전에 추가
+st.write("**Selenium 테스트:**", test_selenium())
+
+
+
 from crawler import (
     crawl_kakao_reviews,
     crawl_google_reviews,
