@@ -23,10 +23,9 @@ def init_driver(headless=True):
     options.add_argument("--disable-features=VizDisplayCompositor")
     options.add_argument("--window-size=1920,1080")
     
-    # 봇 탐지 회피용 User-Agent 추가
-    options.add_argument(
-        "user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-    )[1][5]
+    # 올바른 User-Agent 설정
+    user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+    options.add_argument(f"--user-agent={user_agent}")  # [1][5] 제거
     
     try:
         driver = webdriver.Chrome(options=options)
