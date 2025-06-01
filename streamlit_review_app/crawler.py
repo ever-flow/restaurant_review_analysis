@@ -1,13 +1,29 @@
+import os
 import time
 import re
+
+# PyTorch-Streamlit 호환성 문제 해결 (가장 먼저 실행)
+try:
+    import torch
+    torch.classes.__path__ = [os.path.join(torch.__path__[0], 'classes')]
+except:
+    pass
+
+import streamlit as st
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
+
+# 환경변수 설정
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
 
 # --- 크롤링 함수들 정의 시작 ---
 MAX_REVIEWS = 100
