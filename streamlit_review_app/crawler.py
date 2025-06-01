@@ -15,21 +15,30 @@ CLICK_BATCH = 10
 
 from selenium.webdriver.chrome.options import Options
 
-def init_driver(headless=True):
+import streamlit as st
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
+
+@st.cache_resource
+def init_driver():
     options = Options()
-    options.add_argument("--headless=new")
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
     
-    # 정확한 User-Agent 설정
     user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
     options.add_argument(f"--user-agent={user_agent}")
     
     try:
-        driver = webdriver.Chrome(options=options)
-        return driver
+        return webdriver.Chrome(
+            service=Service(
+                ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+            ),
+            options=options,
+        )
     except Exception as e:
         print(f"Chrome driver 초기화 실패: {e}")
         return None
@@ -38,7 +47,9 @@ def init_driver(headless=True):
 # --- Kakao Map Functions ---
 def crawl_kakao_reviews(restaurant_name):
     import re
-    driver = init_driver(headless=True)
+    driver = init_driver()
+    if driver is None:
+        return []
     print(f"[Kakao] '{restaurant_name}' 검색 시작")
     try:
         driver.get("https://map.kakao.com/")
@@ -150,7 +161,7 @@ def crawl_kakao_reviews(restaurant_name):
         return []
 
     finally:
-        driver.quit()
+        pass
 
 
 # --- Google Maps Helper Functions ---
@@ -239,7 +250,9 @@ def get_top_reviews(driver, topn=MAX_REVIEWS, max_scrolls=12):
 
 # --- Google Maps Crawling Function ---
 def crawl_google_reviews(restaurant_name):
-    driver = init_driver(headless=False)
+    driver = init_driver()
+    if driver is None:
+        return []
     print(f"[Google] '{restaurant_name}' 검색 시작")
     try:
         driver.get("https://www.google.com/maps")
@@ -297,7 +310,7 @@ def crawl_google_reviews(restaurant_name):
         return []
 
     finally:
-        driver.quit()
+        pass
 
 
 # --- Naver Map Functions ---
@@ -345,6 +358,8 @@ def crawl_naver_reviews(restaurant_name):
     주어진 식당 이름으로 Naver Map v5에서 리뷰를 최대 MAX_REVIEWS개까지 수집합니다.
     """
     driver = init_driver()
+    if driver is None:
+        return []
     wait = WebDriverWait(driver, 15)
     print(f"[Naver] '{restaurant_name}' 검색 시작")
     try:
@@ -401,5 +416,5 @@ def crawl_naver_reviews(restaurant_name):
         print(f"[Naver] 오류 발생: {e}")
         return []
     finally:
-        driver.quit()
+        pass
 # --- 크롤링 함수들 정의 끝 ---
