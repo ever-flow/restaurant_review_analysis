@@ -13,25 +13,25 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 MAX_REVIEWS = 100
 CLICK_BATCH = 10
 
+from selenium.webdriver.chrome.options import Options
+
 def init_driver(headless=True):
-    options = webdriver.ChromeOptions()
+    options = Options()
     options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
-    options.add_argument("--disable-web-security")
-    options.add_argument("--disable-features=VizDisplayCompositor")
     options.add_argument("--window-size=1920,1080")
     
-    # 올바른 User-Agent 설정
+    # 정확한 User-Agent 설정
     user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-    options.add_argument(f"--user-agent={user_agent}")  # [1][5] 제거
+    options.add_argument(f"--user-agent={user_agent}")
     
     try:
         driver = webdriver.Chrome(options=options)
         return driver
     except Exception as e:
-        print(f"Chrome driver initialization failed: {e}")
+        print(f"Chrome driver 초기화 실패: {e}")
         return None
 
 
