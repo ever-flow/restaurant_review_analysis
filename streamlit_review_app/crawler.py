@@ -13,7 +13,7 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 MAX_REVIEWS = 100
 CLICK_BATCH = 10
 
-def init_driver(headless=False):
+def init_driver(headless=True):
     options = webdriver.ChromeOptions()
     options.add_argument("--start-maximized")
     options.add_argument("--lang=ko")
