@@ -9,6 +9,8 @@ try:
 except:
     pass
 
+import time
+import re
 import streamlit as st
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -20,6 +22,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
+
 
 # 환경변수 설정
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
