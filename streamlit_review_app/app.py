@@ -14,8 +14,6 @@ import streamlit as st
 import pandas as pd
 
 
-import crawler
-
 # 크롤링 전에 driver 테스트 추가
 def test_selenium():
     driver = init_driver()
