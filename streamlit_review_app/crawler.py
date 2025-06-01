@@ -22,6 +22,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 
+
 # 환경변수 설정
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -37,6 +38,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
+@st.cache_resource
 @st.cache_resource
 def init_driver():
     options = Options()
@@ -59,6 +61,7 @@ def init_driver():
     except Exception as e:
         print(f"Chrome driver 초기화 실패: {e}")
         return None
+
 
 
 
