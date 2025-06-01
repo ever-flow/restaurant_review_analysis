@@ -180,9 +180,6 @@ def crawl_kakao_reviews(restaurant_name):
         print(f"[Kakao] 오류 발생: {e}")
         return []
 
-    finally:
-        pass
-
 
 # --- Google Maps Helper Functions ---
 def click_review_tab(driver):
@@ -329,9 +326,6 @@ def crawl_google_reviews(restaurant_name):
         print(f"[Google] 오류 발생: {e}")
         return []
 
-    finally:
-        pass
-
 
 # --- Naver Map Functions ---
 def crawl_reviews(driver, section, max_reviews=MAX_REVIEWS):
@@ -435,6 +429,5 @@ def crawl_naver_reviews(restaurant_name):
     except Exception as e:
         print(f"[Naver] 오류 발생: {e}")
         return []
-    finally:
-        pass
+
 # --- 크롤링 함수들 정의 끝 ---
