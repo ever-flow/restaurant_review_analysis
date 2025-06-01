@@ -14,6 +14,15 @@ import streamlit as st
 import pandas as pd
 
 
+# app.py에 추가
+from crawler import (
+    crawl_kakao_reviews,
+    crawl_google_reviews,
+    crawl_naver_reviews,
+    init_driver,  # 추가
+)
+
+
 # 크롤링 전에 driver 테스트 추가
 def test_selenium():
     driver = init_driver()
