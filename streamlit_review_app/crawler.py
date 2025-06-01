@@ -63,6 +63,7 @@ def init_driver():
         return None
 
 
+
 # --- Kakao Map Functions ---
 def crawl_kakao_reviews(restaurant_name):
     import re
