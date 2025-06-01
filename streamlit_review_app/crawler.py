@@ -15,16 +15,26 @@ CLICK_BATCH = 10
 
 def init_driver(headless=True):
     options = webdriver.ChromeOptions()
-    options.add_argument("--start-maximized")
-    options.add_argument("--lang=ko")
+    options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--remote-allow-origins=*")  # 필수 옵션
-    if headless:
-        options.add_argument("--headless")
-        options.add_argument("--disable-gpu")
-    service = Service(ChromeDriverManager().install())
-    return webdriver.Chrome(service=service, options=options)
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-web-security")
+    options.add_argument("--disable-features=VizDisplayCompositor")
+    options.add_argument("--window-size=1920,1080")
+    
+    # 봇 탐지 회피용 User-Agent 추가
+    options.add_argument(
+        "user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+    )[1][5]
+    
+    try:
+        driver = webdriver.Chrome(options=options)
+        return driver
+    except Exception as e:
+        print(f"Chrome driver initialization failed: {e}")
+        return None
+
 
 # --- Kakao Map Functions ---
 def crawl_kakao_reviews(restaurant_name):
