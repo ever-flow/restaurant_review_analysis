@@ -1,15 +1,14 @@
 # app.py
 # streamlit run app.py
 
-import os, sys, subprocess
-import torch
+import os
 
-# PyTorch-Streamlit 호환성 문제 해결
+# PyTorch-Streamlit 호환성 수정 (최우선)
 try:
+    import torch
     torch.classes.__path__ = [os.path.join(torch.__path__[0], 'classes')]
-except:
-    pass
-
+except Exception as e:
+    print(f"torch 경로 수정 실패 (무시 가능): {e}")
 
 import streamlit as st
 import pandas as pd
