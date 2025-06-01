@@ -1,8 +1,8 @@
 streamlit
 pandas
-selenium
 webdriver-manager
 transformers
 torch
 konlpy
 scikit-learn
+selenium>=4.0.0
