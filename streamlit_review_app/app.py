@@ -2,6 +2,14 @@
 # streamlit run app.py
 
 import os, sys, subprocess
+import torch
+
+# PyTorch-Streamlit 호환성 문제 해결
+try:
+    torch.classes.__path__ = [os.path.join(torch.__path__[0], 'classes')]
+except:
+    pass
+
 
 import streamlit as st
 import pandas as pd
